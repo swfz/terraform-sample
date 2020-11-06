@@ -1,6 +1,3 @@
-data "google_compute_default_service_account" "default" {
-}
-
 resource "google_cloud_scheduler_job" "job" {
   name             = "test-job"
   description      = "test http job"

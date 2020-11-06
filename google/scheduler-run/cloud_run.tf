@@ -1,3 +1,7 @@
+data "google_container_registry_image" "app" {
+  name = "pubsub"
+}
+
 resource "google_cloud_run_service" "default" {
   name     = "cloudrun-srv"
   location = local.region
@@ -5,14 +9,14 @@ resource "google_cloud_run_service" "default" {
   template {
     spec {
       containers {
-        image = "gcr.io/${local.project}/pubsub"
+        image = data.google_container_registry_image.app.image_url
         env {
           name  = "BUCKET"
           value = "swfz-cloudrun-storage"
         }
         env {
-          name  = "KEY3"
-          value = "VALUE3"
+          name = "SHORT_SHA"
+          value = local.short_sha
         }
       }
       timeout_seconds = 900

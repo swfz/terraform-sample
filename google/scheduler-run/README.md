@@ -32,4 +32,17 @@ terraform apply -var-file default.tfvars -auto-approve
 ```
 
 ## デプロイ
-build -> latestのIDを渡してterraform applyすればよい？
+- イメージ変更時
+terraform applyでcloud runのdeployを叩きたい
+
+イメージに変更がある場合はコミットハッシュをenvに設定する
+
+```
+terraform apply -var-file default.tfvars -auto-approve -var="short_sha=$(git rev-parse --short HEAD)"
+```
+
+- 構成変更時
+
+run deployが走るだけ
+
+コミットハッシュは空になる
