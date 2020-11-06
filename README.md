@@ -3,20 +3,9 @@
 素振り用
 
 ## Google
-### storage
+### [storage](https://github.com/swfz/terraform-sample/tree/master/google/storage)
 - GCSを構築するサンプル、とりあえずTerraformでGCPを試す
-### cloudsql
+### [cloudsql](https://github.com/swfz/terraform-sample/tree/master/google/cloudsql)
 - CloudSQLを使うサンプル
-
-### ToDo
-- CloudSQL + CloudRun
-- CloudSQL + CloudFunctions
-- +API Gateway的なやつ
-- CloudSQL Proxy
-
-- CloudScheduler
-- SecretManager
-- Pub/Sub
-- CloudTasks
-
-- GCS backend
+### [scheduler-run](https://github.com/swfz/terraform-sample/tree/master/google/scheduler-run)
+- CloudScheduler + CloudRunのサンプル
