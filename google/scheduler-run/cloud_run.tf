@@ -7,11 +7,11 @@ resource "google_cloud_run_service" "default" {
       containers {
         image = "gcr.io/${local.project}/pubsub"
         env {
-          name = "BUCKET"
+          name  = "BUCKET"
           value = "swfz-cloudrun-storage"
         }
         env {
-          name = "KEY3"
+          name  = "KEY3"
           value = "VALUE3"
         }
       }
@@ -35,15 +35,15 @@ data "google_iam_policy" "run_act_as" {
 }
 
 resource "google_service_account" "run_invoker" {
-  project = local.project
+  project      = local.project
   account_id   = "cloud-run-invoker-sa"
   display_name = "Cloud Run Invoker Service Account"
 }
 
 resource "google_cloud_run_service_iam_policy" "run_policy" {
-  location = google_cloud_run_service.default.location
-  project = google_cloud_run_service.default.project
-  service = google_cloud_run_service.default.name
+  location    = google_cloud_run_service.default.location
+  project     = google_cloud_run_service.default.project
+  service     = google_cloud_run_service.default.name
   policy_data = data.google_iam_policy.run_act_as.policy_data
 }
 
