@@ -1,4 +1,4 @@
-# Pub/Sub + CloudRun
+# CloudScheduler + CloudRun
 
 SchedulerとCloudRunを構築するためのTerraform
 
@@ -48,3 +48,9 @@ terraform apply -var-file default.tfvars -auto-approve -var="short_sha=$(git rev
 run deployが走るだけ
 
 コミットハッシュは空になる
+
+
+## ToDo
+- スケールさせる場合のパターン 1 container 1 scheduler
+- invokerにsecret managerの権限付与
+- backend gcs
