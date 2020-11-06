@@ -1,5 +1,5 @@
 data "google_container_registry_image" "app" {
-  name = "pubsub"
+  name = "sample-run"
 }
 
 resource "google_cloud_run_service" "default" {
@@ -29,7 +29,7 @@ resource "google_cloud_run_service" "default" {
   }
 }
 
-data "google_iam_policy" "run_act_as" {
+data "google_iam_policy" "invoker" {
   binding {
     role = "roles/run.invoker"
     members = [
@@ -48,7 +48,7 @@ resource "google_cloud_run_service_iam_policy" "run_policy" {
   location    = google_cloud_run_service.default.location
   project     = google_cloud_run_service.default.project
   service     = google_cloud_run_service.default.name
-  policy_data = data.google_iam_policy.run_act_as.policy_data
+  policy_data = data.google_iam_policy.invoker.policy_data
 }
 
 locals {

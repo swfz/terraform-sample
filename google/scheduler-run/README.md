@@ -20,9 +20,11 @@ buildはCD上でやる
 
 ## 初期構築
 
+別途リポジトリでイメージのプッシュまでを行う
+
 ```shell
 export PROJECT=$(gcloud config get-value project)
-gcloud builds submit --tag gcr.io/$PROJECT/hoge
+gcloud builds submit --tag gcr.io/$PROJECT/sample-run
 ```
 
 ```shell
