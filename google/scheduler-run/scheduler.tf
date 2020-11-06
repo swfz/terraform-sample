@@ -18,7 +18,7 @@ resource "google_cloud_scheduler_job" "job" {
   http_target {
     http_method = "POST"
     uri         = "${local.url}/"
-    body        = "RunFromScheduler"
+    body        = base64encode("RunFromScheduler")
     headers     = {}
 
     oidc_token {
