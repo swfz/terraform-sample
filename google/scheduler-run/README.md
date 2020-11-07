@@ -49,6 +49,12 @@ run deployが走るだけ
 
 コミットハッシュは空になる
 
+## 手動での実行
+
+```
+gcloud scheduler jobs run job
+```
+
 
 ## ToDo
 - スケールさせる場合のパターン 1 container 1 scheduler
