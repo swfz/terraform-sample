@@ -1,9 +1,14 @@
 locals {
-  endpoints = toset(["storage","secret_manager"])
+  // endpoints = toset(["storage", "secret_manager"])
+  params = {
+    storage        = "storage request body"
+    secret_manager = "secret_manager request body"
+    fixed_ip       = "fixed_ip request body"
+  }
 }
 
 resource "google_cloud_scheduler_job" "job" {
-  name             = "test-job-${each.value}"
+  name             = "test-job-${each.key}"
   description      = "test http job"
   schedule         = "0 0 1 * *"
   time_zone        = "Asia/Tokyo"
@@ -11,7 +16,7 @@ resource "google_cloud_scheduler_job" "job" {
   project          = local.project
   region           = local.region
 
-  for_each = local.endpoints
+  for_each = local.params
 
   retry_config {
     retry_count          = 1
@@ -23,8 +28,8 @@ resource "google_cloud_scheduler_job" "job" {
 
   http_target {
     http_method = "POST"
-    uri         = "${local.url}/${each.value}"
-    body        = base64encode("RunFromScheduler")
+    uri         = "${local.url}/${each.key}"
+    body        = base64encode(each.value)
     headers     = {}
 
     oidc_token {
