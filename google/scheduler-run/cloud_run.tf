@@ -26,6 +26,10 @@ resource "google_cloud_run_service" "default" {
           name = "SHORT_SHA"
           value = local.short_sha
         }
+        env {
+          name = "PROJECT_ID"
+          value = data.google_project.project.project_id
+        }
       }
       service_account_name = google_service_account.run_invoker.email
       timeout_seconds = 900
