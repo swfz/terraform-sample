@@ -1,9 +1,9 @@
 locals {
   // endpoints = toset(["storage", "secret_manager"])
   params = {
-    storage        = "storage request body"
-    secret_manager = "secret_manager request body"
-    fixed_ip       = "fixed_ip request body"
+    storage        = {value = "storage request body"}
+    secret_manager = {value = "secret_manager request body"}
+    fixed_ip       = {value = "fixed_ip request body"}
   }
 }
 
@@ -29,8 +29,10 @@ resource "google_cloud_scheduler_job" "job" {
   http_target {
     http_method = "POST"
     uri         = "${local.url}/${each.key}"
-    body        = base64encode(each.value)
-    headers     = {}
+    body        = base64encode(jsonencode(each.value))
+    headers     = {
+      "Content-Type" = "application/json"
+    }
 
     oidc_token {
       audience              = local.url
