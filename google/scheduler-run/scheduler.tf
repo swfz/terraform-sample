@@ -1,11 +1,17 @@
+locals {
+  endpoints = toset(["storage","secret_manager"])
+}
+
 resource "google_cloud_scheduler_job" "job" {
-  name             = "test-job"
+  name             = "test-job-${each.value}"
   description      = "test http job"
-  schedule         = "*/8 * * * *"
+  schedule         = "0 0 1 * *"
   time_zone        = "Asia/Tokyo"
   attempt_deadline = "320s"
   project          = local.project
   region           = local.region
+
+  for_each = local.endpoints
 
   retry_config {
     retry_count          = 1
@@ -17,7 +23,7 @@ resource "google_cloud_scheduler_job" "job" {
 
   http_target {
     http_method = "POST"
-    uri         = "${local.url}/"
+    uri         = "${local.url}/${each.value}"
     body        = base64encode("RunFromScheduler")
     headers     = {}
 
