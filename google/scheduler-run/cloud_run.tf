@@ -23,16 +23,16 @@ resource "google_cloud_run_service" "default" {
           value = google_storage_bucket.bucket.name
         }
         env {
-          name = "SHORT_SHA"
+          name  = "SHORT_SHA"
           value = local.short_sha
         }
         env {
-          name = "PROJECT_ID"
+          name  = "PROJECT_ID"
           value = data.google_project.project.project_id
         }
       }
       service_account_name = google_service_account.run_invoker.email
-      timeout_seconds = 900
+      timeout_seconds      = 900
     }
   }
 
@@ -66,7 +66,7 @@ resource "google_cloud_run_service_iam_policy" "run_policy" {
 
 resource "google_storage_bucket_iam_binding" "cloud_run_custom_role_cloud_run_service_account_binding" {
   bucket = google_storage_bucket.bucket.name
-  role = "roles/storage.admin"
+  role   = "roles/storage.admin"
 
   members = [
     format("serviceAccount:%s", google_service_account.run_invoker.email)

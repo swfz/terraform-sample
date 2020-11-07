@@ -66,5 +66,3 @@ echo 'sample-secrets' | gcloud secrets create sample-secret --data-file=-
 
 ## ToDo
 - スケールさせる場合のパターン 1 container 1 scheduler
-- invokerにsecret managerの権限付与
-- backend gcs

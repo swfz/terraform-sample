@@ -7,5 +7,5 @@ locals {
   region         = var.region
   project        = var.project
   project_number = var.project_number
-  short_sha   = var.short_sha
+  short_sha      = var.short_sha
 }
