@@ -1,11 +1,11 @@
-data "google_container_registry_image" "app" {
+data google_container_registry_image app {
   name = "sample-run"
 }
-data "google_compute_default_service_account" "default" {
+data google_compute_default_service_account default {
 }
-data "google_project" "project" {
+data google_project project {
 }
-resource "google_cloud_run_service" "default" {
+resource google_cloud_run_service default {
   name     = "cloudrun-srv"
   location = local.region
 
@@ -42,7 +42,7 @@ resource "google_cloud_run_service" "default" {
   }
 }
 
-data "google_iam_policy" "invoker" {
+data google_iam_policy invoker {
   binding {
     role = "roles/run.invoker"
     members = [
@@ -51,20 +51,20 @@ data "google_iam_policy" "invoker" {
   }
 }
 
-resource "google_service_account" "run_invoker" {
+resource google_service_account run_invoker {
   project      = local.project
   account_id   = "cloud-run-invoker-sa"
   display_name = "Cloud Run Invoker Service Account"
 }
 
-resource "google_cloud_run_service_iam_policy" "run_policy" {
+resource google_cloud_run_service_iam_policy run_policy {
   location    = google_cloud_run_service.default.location
   project     = google_cloud_run_service.default.project
   service     = google_cloud_run_service.default.name
   policy_data = data.google_iam_policy.invoker.policy_data
 }
 
-resource "google_storage_bucket_iam_binding" "cloud_run_custom_role_cloud_run_service_account_binding" {
+resource google_storage_bucket_iam_binding cloud_run_custom_role_cloud_run_service_account_binding {
   bucket = google_storage_bucket.bucket.name
   role   = "roles/storage.admin"
 
@@ -77,6 +77,6 @@ locals {
   url = google_cloud_run_service.default.status[0].url
 }
 
-output "url" {
+output url {
   value = local.url
 }

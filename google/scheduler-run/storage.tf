@@ -1,5 +1,4 @@
-
-resource "google_storage_bucket" "bucket" {
+resource google_storage_bucket bucket {
   name          = "swfz-cloudrun-with-gcs"
   force_destroy = true
   labels = {
@@ -11,7 +10,7 @@ resource "google_storage_bucket" "bucket" {
   }
 }
 
-output "bucket_url" {
+output bucket_url {
   value       = google_storage_bucket.bucket.url
   description = "base URL of the Bucket"
 }
