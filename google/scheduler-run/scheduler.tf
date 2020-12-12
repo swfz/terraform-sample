@@ -1,21 +1,30 @@
 locals {
-  // endpoints = toset(["storage", "secret_manager"])
   params = {
-    storage        = {value = "storage request body"}
-    secret_manager = {value = "secret_manager request body"}
-    fixed_ip       = {value = "fixed_ip request body"}
+    storage        = {
+      body = "storage request body"
+      cron  = "0 0 1 * *"
+    }
+    secret_manager = {
+      body = "secret_manager request body"
+      cron  = "0 0 1 * *"
+    }
+    fixed_ip       = {
+      body = "fixed_ip request body"
+      cron  = "8 * * * *"
+    }
   }
 }
 
 resource google_cloud_scheduler_job job {
   name             = "test-job-${each.key}"
   description      = "test http job"
-  schedule         = "0 0 1 * *"
+  schedule         = each.value.cron
   time_zone        = "Asia/Tokyo"
   attempt_deadline = "320s"
   project          = local.project
   region           = local.region
 
+  # params分だけリソースを作成する(今回だと3つ)
   for_each = local.params
 
   retry_config {

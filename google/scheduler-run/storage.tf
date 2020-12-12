@@ -5,9 +5,6 @@ resource google_storage_bucket bucket {
     environment = "development"
     managed_by  = "terraform"
   }
-  versioning {
-    enabled = true
-  }
 }
 
 output bucket_url {
