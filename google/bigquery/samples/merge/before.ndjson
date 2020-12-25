@@ -1,0 +1,6 @@
+{"metadata_id":"1","classification":"A","name":"hoge","status":"enable","column1":"c3"}
+{"metadata_id":"2","classification":"B","name":"fuga","status":"enable","column1":"c3"}
+{"metadata_id":"3","classification":"A","name":"piyo","status":"enable","column1":"c3"}
+{"metadata_id":"4","classification":"B","name":"foo","status":"disable","column1":"c3"}
+{"metadata_id":"5","classification":"A","name":"bar","status":"enable","column1":"c3"}
+{"metadata_id":"6","classification":"C","name":"baz","status":"disable","column1":"c3"}

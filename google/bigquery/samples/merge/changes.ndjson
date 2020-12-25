@@ -1,0 +1,4 @@
+{"metadata_id":"1","classification":"A","name":"hoge","status":"enable","column1":"c4"}
+{"metadata_id":"3","classification":"A","name":"piyo","status":"enable","column1":"c4"}
+{"metadata_id":"5","classification":"A","name":"bar","status":"rejected","column1":"c4"}
+{"metadata_id":"7","classification":"A","name":"new","status":"enable","column1":"c4"}

@@ -33,6 +33,16 @@ resource google_bigquery_table metadata {
   }
 }
 
+resource google_bigquery_table metadata_tmp {
+  dataset_id  = google_bigquery_dataset.default.dataset_id
+  table_id    = "metadata_tmp"
+  schema      = jsonencode(local.schema.metadata)
+
+  labels = {
+    env = "dev"
+  }
+}
+
 data template_file metadata_sample_sql {
   template = file("sql/metadata.sql.tpl")
 }
@@ -40,7 +50,7 @@ data template_file metadata_sample_sql {
 resource random_uuid job_id { }
 
 resource google_bigquery_job metadata_sample_data {
-  job_id = "metadata_sample_data_job_query-${random_uuid.job_id.result}2"
+  job_id = "metadata_sample_data_job_query-${random_uuid.job_id.result}"
 
   labels = {
     env = "dev-sample-value"
