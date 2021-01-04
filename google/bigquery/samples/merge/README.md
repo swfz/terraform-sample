@@ -1,6 +1,6 @@
 # MERGE構文
 
-## MERGEでUPSERTとDELETEも合わせて実行できるのか
+## MERGEでUPSERTとDELETEも合わせて実行するサンプル
 
 ### 事前準備
 
