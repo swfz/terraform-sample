@@ -9,3 +9,5 @@
 - CloudSQLを使うサンプル
 ### [scheduler-run](https://github.com/swfz/terraform-sample/tree/master/google/scheduler-run)
 - CloudScheduler + CloudRunのサンプル
+### [bigquery](https://github.com/swfz/terraform-sample/tree/master/google/bigquery)
+- BigQuery関連のサンプル
