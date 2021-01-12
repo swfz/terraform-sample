@@ -1,4 +1,5 @@
-resource google_bigquery_dataset default {
+# sample用のデータセット
+resource "google_bigquery_dataset" "default" {
   dataset_id    = "sample_dataset"
   friendly_name = "hoge"
   description   = "hoge"
@@ -9,13 +10,14 @@ resource google_bigquery_dataset default {
   }
 }
 
-resource google_bigquery_table report {
-  dataset_id  = google_bigquery_dataset.default.dataset_id
-  table_id    = "report"
-  schema      = jsonencode(local.schema.report)
-  time_partitioning  {
+# レポート用テーブル 日付パーティション
+resource "google_bigquery_table" "report" {
+  dataset_id = google_bigquery_dataset.default.dataset_id
+  table_id   = "report"
+  schema     = jsonencode(local.schema.report)
+  time_partitioning {
     field = "dt"
-    type = "DAY"
+    type  = "DAY"
   }
 
   labels = {
@@ -23,33 +25,36 @@ resource google_bigquery_table report {
   }
 }
 
-resource google_bigquery_table metadata {
-  dataset_id  = google_bigquery_dataset.default.dataset_id
-  table_id    = "metadata"
-  schema      = jsonencode(local.schema.metadata)
+# メタデータ用テーブル
+resource "google_bigquery_table" "metadata" {
+  dataset_id = google_bigquery_dataset.default.dataset_id
+  table_id   = "metadata"
+  schema     = jsonencode(local.schema.metadata)
 
   labels = {
     env = "dev"
   }
 }
 
-resource google_bigquery_table metadata_tmp {
-  dataset_id  = google_bigquery_dataset.default.dataset_id
-  table_id    = "metadata_tmp"
-  schema      = jsonencode(local.schema.metadata)
+# メタデータ用テーブル MERGE用の一時テーブル
+resource "google_bigquery_table" "metadata_tmp" {
+  dataset_id = google_bigquery_dataset.default.dataset_id
+  table_id   = "metadata_tmp"
+  schema     = jsonencode(local.schema.metadata)
 
   labels = {
     env = "dev"
   }
 }
 
-data template_file metadata_sample_sql {
+data "template_file" "metadata_sample_sql" {
   template = file("sql/metadata.sql.tpl")
 }
 
-resource random_uuid job_id { }
+resource "random_uuid" "job_id" {}
 
-resource google_bigquery_job metadata_sample_data {
+# メタデータへの初期データ投入用JOB
+resource "google_bigquery_job" "metadata_sample_data" {
   job_id = "metadata_sample_data_job_query-${random_uuid.job_id.result}"
 
   labels = {
@@ -62,11 +67,11 @@ resource google_bigquery_job metadata_sample_data {
     destination_table {
       project_id = google_bigquery_table.metadata.project
       dataset_id = google_bigquery_table.metadata.dataset_id
-      table_id = google_bigquery_table.metadata.table_id
+      table_id   = google_bigquery_table.metadata.table_id
     }
 
     allow_large_results = true
-    flatten_results = true
+    flatten_results     = true
 
     script_options {
       key_result_statement = "LAST"
