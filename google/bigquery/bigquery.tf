@@ -14,7 +14,7 @@ resource "google_bigquery_dataset" "default" {
 resource "google_bigquery_table" "report" {
   dataset_id = google_bigquery_dataset.default.dataset_id
   table_id   = "report"
-  schema     = jsonencode(local.schema.report)
+  schema     = file("schema/report.json")
   time_partitioning {
     field = "dt"
     type  = "DAY"
@@ -29,7 +29,7 @@ resource "google_bigquery_table" "report" {
 resource "google_bigquery_table" "metadata" {
   dataset_id = google_bigquery_dataset.default.dataset_id
   table_id   = "metadata"
-  schema     = jsonencode(local.schema.metadata)
+  schema     = file("schema/metadata.json")
 
   labels = {
     env = "dev"
@@ -40,7 +40,7 @@ resource "google_bigquery_table" "metadata" {
 resource "google_bigquery_table" "metadata_tmp" {
   dataset_id = google_bigquery_dataset.default.dataset_id
   table_id   = "metadata_tmp"
-  schema     = jsonencode(local.schema.metadata)
+  schema     = file("schema/metadata.json")
 
   labels = {
     env = "dev"
