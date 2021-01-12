@@ -75,3 +75,21 @@ resource google_bigquery_job metadata_sample_data {
     write_disposition = "WRITE_EMPTY"
   }
 }
+
+# view作成用SQL
+data "template_file" "view_sql" {
+  template = file("sql/view.sql.tpl")
+  vars = {
+    dataset_id = google_bigquery_dataset.default.dataset_id
+  }
+}
+
+resource "google_bigquery_table" "joined_view" {
+  dataset_id = google_bigquery_dataset.default.dataset_id
+  table_id   = "summary"
+
+  view {
+    query          = data.template_file.view_sql.rendered
+    use_legacy_sql = false
+  }
+}
