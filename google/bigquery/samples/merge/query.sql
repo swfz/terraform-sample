@@ -6,5 +6,4 @@ WHEN MATCHED AND tmp.status = 'rejected' THEN
 WHEN MATCHED THEN
   UPDATE SET metadata_id = tmp.metadata_id, classification = tmp.classification, name = tmp.name, status = tmp.status, column1 = tmp.column1
 WHEN NOT MATCHED THEN
-  INSERT(metadata_id, classification, name, status, column1)
-  VALUES(metadata_id, classification, name, status, column1)
+  INSERT ROW
