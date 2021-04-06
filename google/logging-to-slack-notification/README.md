@@ -38,9 +38,13 @@ export TOPIC_NAME=sample-log-topic
 
 ## 通知関数のデプロイ
 
+- 環境変数のセット
+
 ```
-export SLACK_WEBHOOK_URL=
+export SLACK_WEBHOOK_URL=.....
 ```
+
+- Functionsのデプロイ
 
 ```
 $ cd functions
