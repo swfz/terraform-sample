@@ -15,30 +15,40 @@ exports.slackNotification = async (event, context) => {
   const webhook = new IncomingWebhook(url);
 
   const colors = {
-    INFO: 'good',
-    WARNING: 'warning',
-    CRITICAL: 'danger',
+    INFO: '#2EB886',
+    WARNING: '#DAA038',
+    CRITICAL: '#A30100',
   }
-
   const color = colors[params.severity];
 
   await webhook.send({
-    blocks: [
-      {
-        type: "section",
-        text: {
-          type: "mrkdwn",
-          text: `Logged... ${params.logName}`
-        }
-      }
-    ],
     attachments: [
       {
-        color: `${color}`,
-        fields: [
+        color: color,
+        blocks: [
           {
-            title: `Labels: ${JSON.stringify(params.resource.labels)}`,
-            value: `\`\`\`${params.textPayload}\`\`\``
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `*LogName: ${params.logName}*`
+            }
+          },
+          {
+            type: "divider"
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `*Labels: ${JSON.stringify(params.resource.labels)}*`,
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `\`\`\`${params.textPayload}\`\`\``
+            }
           }
         ]
       }
