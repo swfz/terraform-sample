@@ -1,0 +1,26 @@
+- getMessage:
+    call: http.get
+    args:
+      url: https://jsonplaceholder.typicode.com/todos/1
+    result: todo1
+
+- logging_raw:
+    call: sys.log
+    args:
+      text: ${todo1}
+      severity: INFO
+
+- logging_string:
+    call: sys.log
+    args:
+      text: hoge
+      severity: WARNING
+
+- logging_body:
+    call: sys.log
+    args:
+      text: ${json.encode_to_string(todo1.body)}
+      severity: WARNING
+
+- returnValue:
+    return: ${todo1.body1}
