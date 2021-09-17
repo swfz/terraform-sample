@@ -1,4 +1,4 @@
-# logging-to-slack-notification
+# manage-function
 
 
 ## 環境設定(Terraform)

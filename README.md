@@ -20,3 +20,9 @@
 
 ### [tasks-functions](https://github.com/swfz/terraform-sample/tree/master/google/tasks-functions)
 - CloudTasks + Functionsのサンプル
+
+### [logging-to-bigquery](https://github.com/swfz/terraform-sample/tree/master/google/logging-to-bigquery)
+- CloudLogging + SinkでBigQueryへExportするサンプル
+
+### [logging-alert-notification](https://github.com/swfz/terraform-sample/tree/master/google/logging-alert-notification)
+- CloudLogging + AlertPolicy(指標ベース) + Slack通知のサンプル
